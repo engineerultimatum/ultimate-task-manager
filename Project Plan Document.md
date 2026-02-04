@@ -14,6 +14,6 @@
 ### Communication Plan:
 - Communication will happen at anytime it is needed, generally through online channels and with in person meetings when deemed necessary.
 ### Change Management Plan:
-- Changes will be managing by first determining its scope and amount, the updated tasks will be redistributed between team members through online channels or in pwerson meetings if necessary.
+- Changes will be managing by first determining its scope and amount, the updated tasks will be redistributed between team members through online channels or in person meetings if necessary.
 ### Budget Plan:
 - Budget problems arent expected at this time and biggest constraint is expected to be time.
