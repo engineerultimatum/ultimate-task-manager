@@ -1,13 +1,13 @@
 ### Table of Contents:
-- 1.Project Scope
-- 2.Project Organization
-- 3.Objectives
-- 4.Key Phases and Timeline
-- 5.Resource Planning
-- 6.Risk Management
-- 7.Communication Plan
-- 8.Change Management Plan
-- 9.Budget Plan
+1. Project Scope
+2. Project Organization
+3. Objectives
+4. Key Phases and Timeline
+5. Resource Planning
+6. Risk Management
+7. Communication Plan
+8. Change Management Plan
+9. Budget Plan
 
 ### 1.Project Scope: 
 - This project is for task management which naturally includes time management but it is not a calendar app. It rewards the users using progression and achievements but it is not a simple game to collect points. It is not a detailed project manager.
