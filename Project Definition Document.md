@@ -20,7 +20,7 @@
   -	Update task function
   -	Reorganizing task schedules function
 
-### Deliverables:
+### Deliverables-
 ### Budget and Resources:
 - This project team consists of 5 team members all of which will contribute accordingly. 
   Cloud services may be needed to hold user account data. Learning resources will generally be online sources.
