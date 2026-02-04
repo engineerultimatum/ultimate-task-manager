@@ -39,6 +39,6 @@
 - This project team consists of 5 team members all of which will contribute accordingly. 
   Cloud services may be needed to hold user account data. Learning resources will generally be online sources.
 ### 9.Risks and Mitigation Strategies:
-- Biggest risk to this project is disorganization of team members and secondary schedules of members conflicting with project requirements as well as lack of techincal experience. For this problem, excellent    organization of the team is necessary.
+- Biggest risk to this project is disorganization of team members and secondary schedules of members conflicting with project requirements as well as lack of technical experience. For this problem, excellent    organization of the team is necessary.
 ### 10.Project Success Criteria:
 - Main success criteria is completion of basic task management requirements. Namely, these are. Task adding, Task deleting and Task completing. In addition, reward system and more in depth task management functions sare higher level criterias.
