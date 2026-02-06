@@ -26,7 +26,7 @@
 - This project is for task management which naturally includes time management but it is not a calendar app.
   It rewards the users using progression and achievements but it is not a simple game to collect points. It is not a detailed project manager.
 ### 5.Target Audience: 
-- General audience, mostly student looking for effective ways to organize their plan.
+- General audience, mostly students looking for effective ways to organize their plan.
 ### 6.Key Features:
   -	Add task function
   -	Delete task function
