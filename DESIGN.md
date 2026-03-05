@@ -1,4 +1,4 @@
-# Todo Tree - Design Document
+# UTiM - Design Document
 
 ---
 
@@ -46,7 +46,7 @@
 
 ### Brief Project Description
 
-**Todo Tree** is a hierarchical task management application built with Dioxus 0.7, a modern reactive UI framework for Rust (REQ_1). The application enables users to organize their tasks in a tree-like structure, where tasks can have multiple subtasks, creating a natural and intuitive way to manage complex projects and goals.
+**UTiM** is a hierarchical task management application built with Dioxus 0.7, a modern reactive UI framework for Rust (REQ_1). The application enables users to organize their tasks in a tree-like structure, where tasks can have multiple subtasks, creating a natural and intuitive way to manage complex projects and goals.
 
 The application features a gamification system that rewards users with points for completing tasks based on their importance level (REQ_27). Users can prioritize tasks using a three-level importance system (Low, Medium, High) with visual distinction (REQ_39, REQ_11), edit task details through intuitive modals, and quickly expand or collapse task hierarchies for better organization and focus. The system provides a consistent user interface across all application screens (REQ_8) with readable fonts and accessible color schemes (REQ_10, REQ_12).
 
@@ -56,7 +56,7 @@ The application follows a **component-based architecture** pattern:
 
 ```
 ┌─────────────────────────────────────────┐
-│            App Component                 │
+│            App Component                │
 │  (Root - Assets & StyleSheets)          │
 └────────────────┬────────────────────────┘
                  │
@@ -234,7 +234,7 @@ fn CompletionModal(
 ### Visual Interfaces
 
 **Application Layout:**
-- **Header**: "Todo Tree" title (left) + Points display (right)
+- **Header**: "UTiM" title (left) + Points display (right)
 - **Action Bar**: "+ Add Root Task" button
 - **Task List**: Hierarchical tree with indentation and left border
 - **Task Item**: Checkbox | Task Text | Expand/Collapse Button | Add Child Button | Delete Button
@@ -759,7 +759,7 @@ All 4 use cases will be demonstrated during the final presentation:
 
 ## Appendix: Requirements Compliance Summary
 
-### Implemented Requirements (100% Complete)
+### Implemented Requirements (50% Complete)
 
 | Requirement ID | Description | Status |
 |---|---|---|
@@ -832,12 +832,12 @@ All 4 use cases will be demonstrated during the final presentation:
 
 ## Conclusion
 
-The Todo Tree application demonstrates effective use of modern Rust UI frameworks (Dioxus 0.7) for building performant, cross-platform applications. The reactive signal-based state management provides excellent developer experience while maintaining high performance. The hierarchical tree structure with gamification creates an engaging user experience for task management.
+The UTiM application demonstrates effective use of modern Rust UI frameworks (Dioxus 0.7) for building performant, cross-platform applications. The reactive signal-based state management provides excellent developer experience while maintaining high performance. The hierarchical tree structure with gamification creates an engaging user experience for task management.
 
 All 4 primary use cases are fully implemented and ready for demonstration. The modular component architecture allows for easy future enhancements and feature additions.
 
 ---
 
-**Document Version**: 1.0  
+**Document Version**: 1.0.2 
 **Last Updated**: March 5, 2026  
 **Author**: engineerultimatum
