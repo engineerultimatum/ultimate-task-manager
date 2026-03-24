@@ -1,8 +1,271 @@
 use dioxus::prelude::*;
 
-const FAVICON: Asset = asset!("/assets/favicon.ico");
-const MAIN_CSS: Asset = asset!("/assets/main.css");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
+const CORRECT_SEED: &str = "seed"; 
+fn main() {
+    dioxus::launch(App);
+}
+
+#[derive(Debug, Clone, Routable, PartialEq)]
+enum Route {
+    #[route("/")]
+    Login {},
+    #[route("/home")]
+    Home {},
+    #[route("/home/Options")]
+    Options{},
+    #[route("/home/Go")]
+    Go{}
+}
+
+#[component]
+fn App() -> Element {
+    use_context_provider(|| Signal::new("English".to_string()));
+    rsx! {
+        document::Link { rel: "stylesheet", href: TAILWIND_CSS }
+        Router::<Route> {}
+    }
+}
+
+#[component]
+fn Login() -> Element {
+    let mut text = use_signal(|| String::new());
+    let mut message = use_signal(|| String::new());
+    let nav = use_navigator(); 
+
+    rsx! {
+        div {
+            class: "flex flex-col items-center justify-center h-screen bg-gray-800 gap-4",
+
+            h1 {
+                class: "text-4xl font-bold text-blue-200",
+                "Enter Your Seed."
+            }
+
+            input {
+                class: "border border-gray-300 rounded px-4 py-2",
+                placeholder: "Type your seed...",
+                r#type: "password",
+                oninput: move |e| text.set(e.value()),
+            }
+
+            button {
+                class: "mt-4 bg-blue-500 text-white px-6 py-2 rounded",
+                onclick: move |_| {
+                    if text() == CORRECT_SEED {
+                        nav.push(Route::Home {});  
+                    } else {
+                        message.set("❌ Wrong seed, try again.".to_string());
+                    }
+                },
+                "Authenticate"
+            }
+
+            p { class: "text-white", "{message}" }
+        }
+    }
+}
+
+#[component]
+fn Home() -> Element {
+    let mut language: Signal<String> = use_context();
+    let nav = use_navigator();  
+    rsx! {
+        style {
+            "
+            body {{
+                background-color: black;
+                margin: 0;
+            }}
+            @keyframes slide {{
+                from {{ transform: translateX(100vw); }}
+                to   {{ transform: translateX(-100%); }}
+            }}
+            .sliding-text {{
+                animation: slide 90s linear infinite;
+                white-space: nowrap;
+                display: inline-block;
+            }}
+            @keyframes unblur {{
+                from {{ filter: blur(20px); opacity: 0; }}
+                to   {{ filter: blur(0px); opacity: 1; }}
+            }}
+            .unblur-text {{
+                animation: unblur 5s ease-out forwards;
+            }}
+            "
+        }
+
+        div {
+            class: "flex flex-col h-screen",
+
+            // ── top section (black) ──
+            div {
+                class: "flex items-center justify-center py-8 bg-black",
+                h1 {
+                    class: "unblur-text text-4xl font-bold text-blue-200",
+                    if language() == "English" {
+                        h1 { "Username" }
+                    } else {
+                        h1 { "Kullanıcı adı" }
+                    }
+                }
+            }
+
+            // ── divider line ──
+            div { class: "w-full h-px bg-gray-600" }
+
+            // ── middle section (gray) ──
+            div {
+                class: "flex flex-1 items-center justify-center gap-6 bg-red-900",
+
+                button {
+                    class: "bg-zinc-800 text-white px-8 py-4 rounded-lg text-xl hover:bg-zinc-700",
+                    onclick: move |_| {
+                        nav.push(Route::Options {});  // ← go to home page
+                    },
+                    if language() == "English" {
+                        h1 { "Options" }
+                    } else {
+                        h1 { "Seçenekler" }
+                    }
+                }
+                button {
+                    class: "bg-blue-600 text-white px-8 py-4 rounded-lg text-xl hover:bg-blue-500",
+                    onclick: move |_| {
+                        nav.push(Route::Go {});
+                    },
+                    if language() == "English" {
+                        h1 { "My Tasks" }
+                    } else {
+                        h1 { "Görevlerim" }
+                    }
+                }
+            }
+
+            // ── sliding text (bottom) ──
+            div {
+                class: "overflow-hidden pb-8 bg-red-900",
+                p {
+                    class: "sliding-text text-8xl font-bold text-blue-300",
+                    "Welcome to the Ultimate Task Manager ----- Welcome to the Ultimate Task Manager ----- Welcome to the Ultimate Task Manager ----- Welcome to the Ultimate Task Manager"
+                }
+            }
+        }
+    }
+}
+
+#[component]
+fn Options() -> Element {
+    //let mut language = use_signal(|| "English".to_string());
+    let mut language: Signal<String> = use_context();
+    let nav = use_navigator();  // gives you the ability to navigate
+
+    rsx! {
+        style {
+            "
+            body {{
+                background-color: black;
+                margin: 0;
+            }}
+
+            body {{
+                background-color: black;
+                margin: 0;
+            }}
+            @keyframes unblur {{
+                from {{ filter: blur(20px); opacity: 0; }}
+                to   {{ filter: blur(0px); opacity: 1; }}
+            }}
+            .unblur-text {{
+                animation: unblur 3s ease-out forwards;
+            }}
+            "
+        }
+
+        div {
+            class: "flex flex-col h-screen bg-black text-white",
+
+            // ── top bar ──
+            div {
+                class: "flex items-center justify-center py-8 bg-black",
+                h1 {
+                    class: "unblur-text text-4xl font-bold text-blue-200",
+                    if language() == "English" {
+                        h1 { "Options" }
+                    } else {
+                        h1 { "Seçenekler" }
+                    }
+                }
+
+                h2 {
+                    class: "absolute right-8 top-8 text-gray-400 hover:text-gray-200 cursor-pointer",
+                    onclick: move |_| {
+                        // navigate back to home
+                        nav.go_back();
+                    },
+                    if language() == "English" {
+                        h1 { "Back" }
+                    } else {
+                        h1 { "Geri" }
+                    }
+                  }
+            }
+            // ── content ──
+            div {
+                class: "flex flex-col px-8 py-6 gap-6",
+
+                // language row
+                div {
+                    class: "flex items-center justify-between bg-zinc-900 px-6 py-4 rounded-lg",
+
+                    p {
+                        class: "text-lg text-gray-300",
+                        if language() == "English" {
+                        h1 { "Language" }
+                        } else {
+                        h1 { "Dil" }
+                        }
+                    }
+
+                    // toggle between two languages
+                    div {
+                        class: "flex gap-2",
+
+                        button {
+                            class: if language() == "English" {
+                                "px-4 py-2 rounded bg-blue-600 text-white"
+                            } else {
+                                "px-4 py-2 rounded bg-zinc-700 text-gray-400 hover:bg-zinc-600"
+                            },
+                            onclick: move |_| language.set("English".to_string()),
+                            if language() == "English" {
+                                h1 { "English" }
+                            } else {
+                                h1 { "İngilizce" }
+                            }
+                        }
+
+                        button {
+                            class: if language() == "Turkish" {
+                                "px-4 py-2 rounded bg-blue-600 text-white"
+                            } else {
+                                "px-4 py-2 rounded bg-zinc-700 text-gray-400 hover:bg-zinc-600"
+                            },
+                            onclick: move |_| language.set("Turkish".to_string()),
+                            if language() == "English" {
+                                h1 { "Turkish" }
+                            } else {
+                                h1 { "Türkçe" }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+///////////////////////////
 
 #[derive(Clone, PartialEq)]
 struct TodoNode {
@@ -12,23 +275,8 @@ struct TodoNode {
     importance: u32, // 1 = green, 2 = red, 3 = purple
     children: Vec<TodoNode>,
 }
-
-fn main() {
-    dioxus::launch(App);
-}
-
 #[component]
-fn App() -> Element {
-    rsx! {
-        document::Link { rel: "icon", href: FAVICON }
-        document::Link { rel: "stylesheet", href: MAIN_CSS }
-        document::Link { rel: "stylesheet", href: TAILWIND_CSS }
-        Main {}
-    }
-}
-
-#[component]
-pub fn Main() -> Element {
+pub fn Go() -> Element {
     let mut todos = use_signal(|| vec![
         TodoNode {
             id: 0,
