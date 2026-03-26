@@ -1,7 +1,3 @@
-# Hot Dog Task Manager - Architecture
-
-## System Architecture
-
 ```mermaid
 classDiagram
     class SaveData {
@@ -118,64 +114,3 @@ classDiagram
     App "1" --|> Go
     App "1" --|> Calendar
 ```
-
-## Data Models
-
-### SaveData
-Stores persistent user data including seed, language preference, tasks, and points.
-
-### TodoNode
-Represents a task in a tree structure with support for:
-- Nested subtasks (children)
-- Importance levels (1=Low, 2=Medium, 3=High)
-- Optional deadlines (Unix timestamp)
-- Completion tracking
-
-## Routes
-
-- **Login** - Seed-based authentication
-- **Home** - Main menu hub
-- **Options** - Settings (language selection)
-- **Go** - Task list view with tree structure
-- **Calendar** - Calendar grid view with deadline support
-
-## Key Components
-
-### Navigation Flow
-```
-App (Root)
-  ├── Login (seed entry → authenticate)
-  └── Home (main menu)
-      ├── Options (settings)
-      ├── Go (task manager)
-      └── Calendar (deadline calendar)
-```
-
-### Task Management
-- TreeNode renders individual tasks in a tree structure
-- EditModal allows renaming and importance adjustment
-- CompletionModal confirms task completion
-- Points awarded based on importance level (1-3 pts)
-
-### Calendar Features
-- 6x7 grid with previous/next month navigation
-- Double-click days to create deadline-based tasks
-- DayModal with importance selector
-- CalendarDay shows current vs. non-current month dates
-
-## State Management
-
-Uses Dioxus Signals for reactive state:
-- `seed_signal` - User identification
-- `language_signal` - UI language preference
-- `todos` - Task list
-- `next_id` - ID counter
-- `points` - User score
-- Modal open/close states
-- Expanded/collapsed sections
-
-## Data Persistence
-
-- **Web**: LocalStorage (browser)
-- **Desktop**: File system with config directory (~/.config/hot_dog/saves/)
-- Auto-saves on every mutation
