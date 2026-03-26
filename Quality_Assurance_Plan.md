@@ -15,3 +15,4 @@
 | Usability       | Ease of use for users         | User satisfaction score from surveys      |
 | Maintainability | Ease of modifying the codebase| Code complexity score (e.g., Cyclomatic Complexity) |
 
+Author: SualpGdk
