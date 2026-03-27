@@ -179,6 +179,14 @@ fn App() -> Element {
 }
 ```
 
+#### **Home Component**
+```rust
+#[component]
+fn Home() -> Element {
+    //The general base of the application, routes user to options, tasks and calendar page
+}
+```
+
 #### **Main Component**
 ```rust
 #[component]
