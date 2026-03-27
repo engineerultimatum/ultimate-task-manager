@@ -604,13 +604,12 @@ All 4 use cases will be demonstrated during the final presentation:
 | Aspect | Dioxus 0.7 | React (Web-only) | Vue.js | Svelte |
 |--------|-----------|------------------|--------|--------|
 | **Language** | Rust | JavaScript/TypeScript | JavaScript | JavaScript |
-| **Type Safety** | ✅ Native | ⚠️ Via TypeScript | ⚠️ Via TypeScript | ⚠️ Via TypeScript |
-| **Performance** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
-| **Multi-Platform** | ✅ Web/Desktop/Mobile | ❌ Web-only | ❌ Web-only | ❌ Web-only |
+| **Type Safety** | Native | Via TypeScript | Via TypeScript | Via TypeScript |
+| **Performance** | good | medium | medium | good |
+| **Multi-Platform** | Web/Desktop/Mobile | Web-only | Web-only | Web-only |
 | **Learning Curve** | Steep (Rust + FRP) | Medium (JSX) | Medium (Templates) | Easy |
-| **Bundle Size** | Very Small (~1MB) | Large (~35KB gzipped) | Medium (~25KB) | Small (~15KB) |
-| **Maintainability** | High (~360 LOC) | Medium | Medium | High |
-| **Community** | Growing | Massive | Large | Medium |
+| **Bundle Size** | Small (~1MB) | Large (~35KB gzipped) | Medium (~25KB) | Small (~15KB) |
+| **Maintainability** | Medium | Medium | Medium | High |
 
 **Decision Rationale**: Dioxus 0.7 chosen for:
 - Type safety preventing runtime errors
@@ -646,9 +645,9 @@ All 4 use cases will be demonstrated during the final presentation:
 | Criterion | Dioxus Signals | Context API | Redux-like | Local State |
 |-----------|---------------|------------|-----------|------------|
 | **Complexity** | Low | Low | High | Very Low |
-| **Scalability** | High (Reactive) | Medium | High | Low |
-| **Debugging** | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ |
-| **Performance** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ |
+| **Scalability** |Low | Medium | High | Low |
+| **Debugging** | good | medium | good | not great |
+| **Performance** | good | medium | medium | medium |
 | **Learning Curve** | Low (Reactive) | Very Low | Medium | Very Low |
 | **Re-render Control** | Automatic | Manual | Manual | Automatic |
 
