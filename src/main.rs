@@ -30,7 +30,7 @@ enum Route {
     #[route("/home/Calendar")]
     Calendar{},
 }
-
+ 
 #[component]
 fn App() -> Element {
     let seed_signal: Signal<Option<String>> = use_signal(|| None);
@@ -679,6 +679,32 @@ fn TreeNode(node: TodoNode, todos: Signal<Vec<TodoNode>>, mut next_id: Signal<us
 }
 
 #[component]
+fn ImportanceSelector(mut importance: Signal<u32>) -> Element {
+    rsx! {
+        div { class: "mb-4",
+            label { class: "block text-white mb-2", "Importance" }
+            div { class: "flex gap-2",
+                button {
+                    class: if importance() == 1 { "px-4 py-2 bg-green-500 text-white rounded font-bold" } else { "px-4 py-2 bg-green-700 text-white rounded hover:bg-green-600" },
+                    onclick: move |_| importance.set(1),
+                    "🟢 Low"
+                }
+                button {
+                    class: if importance() == 2 { "px-4 py-2 bg-red-500 text-white rounded font-bold" } else { "px-4 py-2 bg-red-700 text-white rounded hover:bg-red-600" },
+                    onclick: move |_| importance.set(2),
+                    "🔴 Medium"
+                }
+                button {
+                    class: if importance() == 3 { "px-4 py-2 bg-purple-500 text-white rounded font-bold" } else { "px-4 py-2 bg-purple-700 text-white rounded hover:bg-purple-600" },
+                    onclick: move |_| importance.set(3),
+                    "🟣 High"
+                }
+            }
+        }
+    }
+}
+
+#[component]
 fn EditModal(
     initial_text: String,
     initial_importance: u32,
@@ -686,7 +712,7 @@ fn EditModal(
     on_cancel: EventHandler<()>,
 ) -> Element {
     let mut input_value = use_signal(|| initial_text.clone());
-    let mut importance = use_signal(|| initial_importance);
+    let importance = use_signal(|| initial_importance);
 
     rsx! {
         div { class: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50",
@@ -703,26 +729,7 @@ fn EditModal(
                         }
                     },
                 }
-                div { class: "mb-4",
-                    label { class: "block text-white mb-2", "Importance" }
-                    div { class: "flex gap-2",
-                        button {
-                            class: if importance() == 1 { "px-4 py-2 bg-green-500 text-white rounded font-bold" } else { "px-4 py-2 bg-green-700 text-white rounded hover:bg-green-600" },
-                            onclick: move |_| importance.set(1),
-                            "🟢 Low"
-                        }
-                        button {
-                            class: if importance() == 2 { "px-4 py-2 bg-red-500 text-white rounded font-bold" } else { "px-4 py-2 bg-red-700 text-white rounded hover:bg-red-600" },
-                            onclick: move |_| importance.set(2),
-                            "🔴 Medium"
-                        }
-                        button {
-                            class: if importance() == 3 { "px-4 py-2 bg-purple-500 text-white rounded font-bold" } else { "px-4 py-2 bg-purple-700 text-white rounded hover:bg-purple-600" },
-                            onclick: move |_| importance.set(3),
-                            "🟣 High"
-                        }
-                    }
-                }
+                ImportanceSelector { importance }
                 div { class: "flex gap-2 justify-end",
                     button {
                         class: "px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700",
@@ -803,26 +810,7 @@ fn DayModal(
                         }
                     },
                 }
-                div { class: "mb-4",
-                    label { class: "block text-white mb-2", "Importance" }
-                    div { class: "flex gap-2",
-                        button {
-                            class: if importance() == 1 { "px-4 py-2 bg-green-500 text-white rounded font-bold" } else { "px-4 py-2 bg-green-700 text-white rounded hover:bg-green-600" },
-                            onclick: move |_| importance.set(1),
-                            "🟢 Low"
-                        }
-                        button {
-                            class: if importance() == 2 { "px-4 py-2 bg-red-500 text-white rounded font-bold" } else { "px-4 py-2 bg-red-700 text-white rounded hover:bg-red-600" },
-                            onclick: move |_| importance.set(2),
-                            "🔴 Medium"
-                        }
-                        button {
-                            class: if importance() == 3 { "px-4 py-2 bg-purple-500 text-white rounded font-bold" } else { "px-4 py-2 bg-purple-700 text-white rounded hover:bg-purple-600" },
-                            onclick: move |_| importance.set(3),
-                            "🟣 High"
-                        }
-                    }
-                }
+                ImportanceSelector { importance }
                 div { class: "flex gap-2 justify-end",
                     button {
                         class: "px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700",
