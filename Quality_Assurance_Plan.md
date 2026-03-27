@@ -3,7 +3,7 @@
 ## Quality Assurance Strategy
 
 -  Overview: Testing is based on whether intended requirements are met and resulting product is similar to the envisioned version
--  Testing Methodolgies: Main testing is usability testing. Beyond it, black box testing is used as the primary way of testing with unit testing also used in specific situations.
+-  Testing Methodolgies: Main testing is usability testing. Beyond it, black box testing is used as the primary way of testing. Unit testing also used in specific situations.
 -  Automated vs. Manual Testing: Entire system will be tested manually
 
 ## Quality Factors & Metrics
