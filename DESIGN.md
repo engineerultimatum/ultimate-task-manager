@@ -30,8 +30,9 @@
 
 | Name | Role | Contributions |
 |------|------|---------------|
-| engineerultimatum | Project Lead | Full-stack development, architecture, testing & validation |
-| SualpGdk | Software Ddeveloper | Full-stack development, architecture, testing & validation, Çaycı |
+| engineerultimatum | Project Lead | Full-stack development, architecture,  |
+| SualpGdk | Software Developer | Full-stack development, architecture, Çaycı |
+| B4andAfter | Systems Engineer | Testing & validation, requirement analysis |
 
 ---
 
@@ -856,6 +857,6 @@ All 4 primary use cases are fully implemented and ready for demonstration. The m
 
 ---
 
-**Document Version**: 1.0.2 
+**Document Version**: 1.0.3 
 **Last Updated**: March 27, 2026  
-**Authors**: engineerultimatum, SualpGdk, (AI contribution)
+**Authors**: engineerultimatum, SualpGdk, B4andAfter, (AI contribution)
