@@ -624,12 +624,12 @@ All 4 use cases will be demonstrated during the final presentation:
 
 | Feature | Tailwind CSS | CSS-in-JS | CSS Modules | Plain CSS |
 |---------|-------------|-----------|-------------|-----------|
-| **Development Speed** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ |
-| **Type Safety** | ⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ | ❌ |
+| **Development Speed** | Fast | Fast | Fast | Fast |
+| **Type Safety** | medium | good |  |  |
 | **Bundle Size** | Small | Medium | Small | Very Small |
 | **Learning Curve** | Low | Medium | Low | Very Low |
-| **Theming Support** | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐ |
-| **Hot Reload** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ |
+| **Theming Support** | good | good | medium | medium |
+| **Hot Reload** | good | good | medium | weak |
 | **IDE Autocomplete** | ✅ (IntelliSense) | Limited | Limited | ✅ |
 
 **Decision Rationale**: Tailwind CSS selected because:
