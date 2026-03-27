@@ -53,7 +53,7 @@ The application features a gamification system that rewards users with points fo
 
 ### System Architecture
 
-The application follows a **component-based architecture** pattern:
+The application follows a **component-based architecture**, monolithic development pattern where source code is kept together to improve ease of development and speed:
 
 ```
 ┌─────────────────────────────────────────┐
