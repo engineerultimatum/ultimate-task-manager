@@ -65,7 +65,11 @@ The application follows a **component-based architecture** pattern:
         │  Main Component  │
         │   (State Setup)  │
         └────────┬─────────┘
-                 │
+                 │                                
+        ┌────────▼──────────────┐         ┌──────────────┐
+        │  Login Component      │_________| Options      |  
+        │                       │         |              |
+        └────────┬──────────────┘         └──────────────┘
         ┌────────▼──────────────┐
         │  TreeNode Component   │
         │  (Recursive Rendering)│
