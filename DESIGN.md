@@ -31,6 +31,7 @@
 | Name | Role | Contributions |
 |------|------|---------------|
 | engineerultimatum | Project Lead | Full-stack development, architecture, testing & validation |
+| SualpGdk | Software Ddeveloper | Full-stack development, architecture, testing & validation |
 
 ---
 
