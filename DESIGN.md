@@ -544,39 +544,46 @@ on_completed: move |_| {
 
 ---
 
-#### **Use Case 4: Navigating and Managing Complex Task Trees**
+#### **Use Case 5: Global Language Synchronization**
 
 **Navigation State:**
 ```
-Initial State: All tasks expanded
-    ↓
-User clicks ▼ (collapse arrow)
-    ↓
-expanded Signal set to false
-    ↓
-ul element conditional rendering: false
-    ↓
-Children not rendered (DOM removed)
-    ↓
-User clicks ▶ (expand arrow)
-    ↓
-expanded Signal set to true
-    ↓
-Children re-rendered
+Initial State: language signal is set to "English" (stored in Context)
+↓
+
+User clicks "Turkish" in Options component
+
+↓
+
+language.set("Turkish") called
+
+↓
+
+Reactive Trigger: All components using language() signal are notified
+
+↓
+
+UI Re-render: if/else branches in Home and Options evaluate to "Turkish" text
 ```
 
-**Tree Traversal for Deletion:**
+**Persistence Logic:**
 ```rust
-fn delete_node_from_tree(nodes: &mut Vec<TodoNode>, id: usize) {
-    nodes.retain(|node| node.id != id);  // Remove matching node
-    for node in nodes {
-        delete_node_from_tree(&mut node.children, id);  // Recurse
+use_effect(move || {
+    // 1. Monitor seed_signal for user session
+    if let Some(seed) = seed_signal.read().as_ref() {
+        // 2. Access local storage/database
+        if let Some(mut save) = load_save(seed) {
+            // 3. Sync global signal state to persistent struct
+            save.language = language.read().clone();
+            // 4. Commit to storage
+            save_data_to_storage(&save);
+        }
     }
-}
+});
 ```
-- Breadth-first removal at current level
-- Depth-first recursion through children
-- Ensures complete removal of node and descendants
+- Automatic Trigger: Runs every time the language signal changes.
+- Data Integrity: Ensures the user's preference survives a page refresh.
+- Separation of Concerns: The UI only cares about the signal; the use_effect handles the disk I/O.
 
 ---
 
@@ -601,11 +608,10 @@ All 4 use cases will be demonstrated during the final presentation:
    - Complete "Wireframes" → +3 points
    - Show points accumulation in header
 
-4. **UC4 Demo**: Navigate complex structure
-   - Collapse "Design Phase" → children hidden
-   - Expand "Design Phase" → children visible
-   - Delete "Blog Series Planning" → entire tree removed
-
+4. **UC4 Demo**: Globally change language
+   - Button in options page allowing to change language
+   - Language instantly changes
+   - Traverse other pages to see the global language change
 ---
 
 ## Design Decisions
