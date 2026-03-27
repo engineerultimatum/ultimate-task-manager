@@ -83,11 +83,11 @@ The application follows a **component-based architecture**, monolithic developme
      └───────┘           └──────────────┘   └───────────────┘
 ```
 
-**Layered Architecture:**
-- **Presentation Layer**: Dioxus components with Tailwind CSS styling
-- **State Management Layer**: Dioxus Signals for reactive state
-- **Business Logic Layer**: Tree manipulation functions (add, delete, rename, update)
-- **Data Layer**: In-memory TodoNode tree structure
+**Monolithic Architecture:**
+- All application components are built, deployed, and scaled together as one unit.
+- Components (UI, business logic, data access) are interconnected
+- Application uses a single database
+- All functionalities are within one repository
 
 ### Technology Stack
 
