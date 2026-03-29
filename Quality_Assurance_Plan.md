@@ -15,6 +15,7 @@
 | Usability       | Ease of use for users         | User satisfaction score from surveys      |
 | Maintainability | Ease of modifying the codebase| Code complexity score (e.g., Cyclomatic Complexity) |
 ## Test Plan
+Test Cases:
 1. Creating a New Save:
   - Steps
     - Run the program
@@ -47,5 +48,7 @@
     - Create a task in calender before the curennt time or,
     - Create a task in calender after the curennt time and wait until the due date
   - Expected outcome: There is a "Expired" text under the task's name.
+
+Bug Tracking: Bugs will be reported under each test case if test cases failed. Each bugs' status will be traced using a table which will be created using the test cases.
 
 Authors: SualpGdk, B4andAfter
