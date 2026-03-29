@@ -48,4 +48,4 @@
     - Create a task in calender after the curennt time and wait until the due date
   - Expected outcome: There is a "Expired" text under the task's name.
 
-Author: SualpGdk, B4andAfter
+Authors: SualpGdk, B4andAfter
