@@ -14,5 +14,37 @@
 | Scalability     | Ease of extending the software with new features    | Level of adherence to scalable software design principle |
 | Usability       | Ease of use for users         | User satisfaction score from surveys      |
 | Maintainability | Ease of modifying the codebase| Code complexity score (e.g., Cyclomatic Complexity) |
+## Test Plan
+1. Creating a New Save:
+  - Steps
+    - Run the program
+    - Enter a seed value
+  - Expected outcome: A new save file is created named after the seed value. Main screen is acessed.
+2. Creating a Task:
+  - Steps
+    - Double click on a date on calender or,
+    - Click "New Task" button
+    - Edit the name and priority values.
+    - Click "Save Task" button.
+  - Expected outcome: A new task is created and can be seen on "My Tasks".
+3. Reaccessing a Profile Using an Already Existing Seed Value
+ - Steps
+    - Rerun the program
+    - Enter a prieviously existing seed value.
+  - Expected outcome: Tasks that created and points gained in that save file can be seen.
+4. Marking a Task as Completed
+ - Steps
+    - Click check button on a task
+    - Click "Yes" button on confirmation popup
+  - Expected outcome: Task is marked done and points are given acorrding to the priority.
+5. Deleting a task
+ - Steps
+    - Click Cross button on a task
+  - Expected outcome: Task is removed and no points gained.
 
-Author: SualpGdk
+5. Expired Tasks
+ - Steps
+    - Create a task in calender before the curennt time or,
+    - Create a task in calender after the curennt time and wait until the due date
+  - Expected outcome: There is a "Expired" text under the task's name.
+Author: SualpGdk, B4andAfter
