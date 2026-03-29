@@ -42,9 +42,10 @@
     - Click Cross button on a task
   - Expected outcome: Task is removed and no points gained.
 
-5. Expired Tasks
+6. Expired Tasks
  - Steps
     - Create a task in calender before the curennt time or,
     - Create a task in calender after the curennt time and wait until the due date
   - Expected outcome: There is a "Expired" text under the task's name.
+
 Author: SualpGdk, B4andAfter
