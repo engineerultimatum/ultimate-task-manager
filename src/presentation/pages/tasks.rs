@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use crate::data::SaveManager;
-use crate::models::{Route, TodoNode};
-use crate::business_logic::add_root_node;
+use crate::models::{Route, TaskType};
+use crate::business_logic::{add_root_node_with_type, reset_habit_if_needed};
 use crate::presentation::components::TreeNode;
 
 #[component]
@@ -14,22 +14,12 @@ pub fn Go() -> Element {
     let mut todos = use_signal(|| {
         if let Some(seed) = seed_signal.read().as_ref() {
             if let Some(save) = SaveManager::load_save(seed) {
-                return save.todos;
+                let mut tasks = save.todos;
+                reset_habit_if_needed(&mut tasks);
+                return tasks;
             }
         }
-        vec![
-            TodoNode {
-                id: 0,
-                text: "Learn Rust".to_string(),
-                completed: false,
-                importance: 1,
-                children: vec![
-                    TodoNode { id: 1, text: "New Subtask".to_string(), completed: false, importance: 1, children: vec![], deadline: None },
-                    TodoNode { id: 2, text: "New Subtask".to_string(), completed: false, importance: 1, children: vec![], deadline: None },
-                ],
-                deadline: None,
-            },
-        ]
+        vec![]
     });
     
     let mut next_id = use_signal(|| {
@@ -49,6 +39,8 @@ pub fn Go() -> Element {
         }
         0u32
     });
+
+    let mut show_task_type_modal = use_signal(|| false);
 
     // Auto-save whenever todos or points change
     use_effect(move || {
@@ -84,8 +76,7 @@ pub fn Go() -> Element {
             button {
                 class: "text-lg text-green-500 mb-4 px-4 py-2 bg-green-700 rounded hover:bg-green-600",
                 onclick: move |_| {
-                    add_root_node(todos.write().as_mut(), next_id());
-                    next_id += 1;
+                    show_task_type_modal.set(true);
                 },
                 "+ Add Root Task"
             }
@@ -98,6 +89,50 @@ pub fn Go() -> Element {
                         next_id,
                         points,
                     }
+                }
+            }
+
+            if show_task_type_modal() {
+                TaskTypeModal {
+                    on_select: move |task_type: TaskType| {
+                        add_root_node_with_type(todos.write().as_mut(), next_id(), task_type);
+                        next_id += 1;
+                        show_task_type_modal.set(false);
+                    },
+                    on_cancel: move |_| {
+                        show_task_type_modal.set(false);
+                    },
+                }
+            }
+        }
+    }
+}
+
+#[component]
+fn TaskTypeModal(
+    on_select: EventHandler<TaskType>,
+    on_cancel: EventHandler<()>,
+) -> Element {
+    rsx! {
+        div { class: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50",
+            div { class: "bg-blue-900 rounded-lg shadow-lg p-6 w-96",
+                h2 { class: "text-xl font-bold mb-4 text-white", "Select Task Type" }
+                div { class: "flex flex-col gap-3 mb-6",
+                    button {
+                        class: "px-4 py-3 bg-green-600 text-white rounded hover:bg-green-500 font-semibold",
+                        onclick: move |_| on_select.call(TaskType::Regular),
+                        "📋 Regular Task"
+                    }
+                    button {
+                        class: "px-4 py-3 bg-purple-600 text-white rounded hover:bg-purple-500 font-semibold",
+                        onclick: move |_| on_select.call(TaskType::Habit),
+                        "🔄 Daily Habit"
+                    }
+                }
+                button {
+                    class: "w-full px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700",
+                    onclick: move |_| on_cancel.call(()),
+                    "Cancel"
                 }
             }
         }

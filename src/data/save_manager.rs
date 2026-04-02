@@ -1,11 +1,5 @@
 use crate::models::SaveData;
 
-/// Platform-agnostic save manager interface
-pub trait StorageBackend: Send + Sync {
-    fn load(&self, seed: &str) -> Option<SaveData>;
-    fn save(&self, data: &SaveData) -> Result<(), String>;
-}
-
 /// High-level save management API
 pub struct SaveManager;
 

@@ -1,9 +1,10 @@
 use dioxus::prelude::*;
 use crate::data::SaveManager;
-use crate::models::{Route, TodoNode};
+use crate::models::Route;
 use crate::business_logic::{
     get_days_in_month, get_first_day_of_week, get_current_month,
     format_month, create_deadline_timestamp, generate_calendar_days,
+    TodoNodeFactory,
 };
 use crate::presentation::components::{CalendarDay, DayModal};
 
@@ -126,18 +127,17 @@ pub fn Calendar() -> Element {
                             next_id,
                             seed_signal,
                             language_signal,
-                            on_create: move |(task_text, importance): (String, u32)| {
+                            on_create: move |(task_text, _importance): (String, u32)| {
                                 let deadline_timestamp = create_deadline_timestamp(year, month, selected_day());
                                 todos
                                     .with_mut(|t| {
-                                        t.push(TodoNode {
-                                            id: next_id(),
-                                            text: task_text.clone(),
-                                            completed: false,
-                                            importance,
-                                            children: vec![],
-                                            deadline: Some(deadline_timestamp),
-                                        });
+                                        t.push(
+                                            TodoNodeFactory::create_deadline(
+                                                next_id(),
+                                                task_text.clone(),
+                                                deadline_timestamp,
+                                            ),
+                                        );
                                     });
                                 next_id += 1;
                                 if let Some(seed) = seed_signal.read().as_ref() {

@@ -1,6 +1,7 @@
 use dioxus::prelude::*;
 use crate::data::SaveManager;
 use crate::models::Route;
+use crate::business_logic::{TodoNodeFactory, SaveDataBuilder};
 
 #[component]
 pub fn Login() -> Element {
@@ -69,39 +70,22 @@ fn process_login(
         }
         None => {
             seed_signal.set(Some(seed.to_string()));
-            let new_save = crate::models::SaveData {
-                seed: seed.to_string(),
-                language: "English".to_string(),
-                todos: vec![
-                    crate::models::TodoNode {
-                        id: 0,
-                        text: "Learn Rust".to_string(),
-                        completed: false,
-                        importance: 1,
-                        children: vec![
-                            crate::models::TodoNode {
-                                id: 1,
-                                text: "New Subtask".to_string(),
-                                completed: false,
-                                importance: 1,
-                                children: vec![],
-                                deadline: None,
-                            },
-                            crate::models::TodoNode {
-                                id: 2,
-                                text: "New Subtask".to_string(),
-                                completed: false,
-                                importance: 1,
-                                children: vec![],
-                                deadline: None,
-                            },
-                        ],
-                        deadline: None,
-                    },
-                ],
-                next_id: 3,
-                points: 0,
-            };
+            
+            // Build initial data using Factory & Builder patterns
+            let learn_rust = TodoNodeFactory::create_regular(0, "Learn Rust".to_string());
+            let subtask1 = TodoNodeFactory::create_subtask(1, "New Subtask".to_string(), 1);
+            let subtask2 = TodoNodeFactory::create_subtask(2, "New Subtask".to_string(), 1);
+            
+            let mut root_task = learn_rust;
+            root_task.children = vec![subtask1, subtask2];
+            
+            let new_save = SaveDataBuilder::new(seed.to_string())
+                .with_language("English".to_string())
+                .with_initial_task(root_task)
+                .with_next_id(3)
+                .with_points(0)
+                .build();
+            
             SaveManager::save_data(&new_save);
             language_signal.set("English".to_string());
         }

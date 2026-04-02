@@ -1,8 +1,6 @@
 use dioxus::prelude::*;
 use crate::presentation::components::ImportanceSelector;
 use crate::business_logic::format_month;
-use crate::models::SaveData;
-use crate::data::SaveManager;
 
 #[component]
 pub fn EditModal(
@@ -50,14 +48,27 @@ pub fn EditModal(
 #[component]
 pub fn CompletionModal(
     task_name: String,
+    is_habit: bool,
     on_completed: EventHandler<()>,
     on_cancel: EventHandler<()>,
 ) -> Element {
     rsx! {
         div { class: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50",
             div { class: "bg-blue-900 rounded-lg shadow-lg p-6 w-96",
-                h2 { class: "text-xl font-bold mb-4 text-white", "Complete Task?" }
-                p { class: "text-white mb-6", "Mark '{task_name}' as completed?" }
+                h2 { class: "text-xl font-bold mb-4 text-white",
+                    if is_habit {
+                        "Complete Daily Habit?"
+                    } else {
+                        "Complete Task?"
+                    }
+                }
+                p { class: "text-white mb-6",
+                    if is_habit {
+                        "Mark '{task_name}' as completed today? It will reset tomorrow."
+                    } else {
+                        "Mark '{task_name}' as completed?"
+                    }
+                }
                 div { class: "flex gap-2 justify-end",
                     button {
                         class: "px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700",
@@ -88,7 +99,7 @@ pub fn DayModal(
     on_cancel: EventHandler<()>,
 ) -> Element {
     let mut task_name = use_signal(|| String::new());
-    let mut importance = use_signal(|| 1);
+    let importance = use_signal(|| 1);
 
     rsx! {
         div { class: "fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50",

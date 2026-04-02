@@ -17,7 +17,7 @@ fn main() {
 fn App() -> Element {
     let seed_signal: Signal<Option<String>> = use_signal(|| None);
     let language_signal: Signal<String> = use_signal(|| "English".to_string());
-    let mut current_route = use_signal(|| Route::Login);
+    let current_route = use_signal(|| Route::Login);
     
     use_context_provider(|| language_signal);
     use_context_provider(|| seed_signal);
