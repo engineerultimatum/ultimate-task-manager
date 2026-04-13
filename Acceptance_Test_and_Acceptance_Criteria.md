@@ -17,6 +17,6 @@
 
 ---
 
-Test Name: Calendar functionality
-Type: Functional
-Expectation: A new event to a future calendar day can be added/removed
+- Test Name: Calendar functionality
+- Type: Functional
+- Expectation: A new event to a future calendar day can be added/removed
