@@ -1,22 +1,31 @@
 # Acceptance Test and Acceptance Criteria
-- Test Name: Load data using seed
-- Type: Functional
-- Input: Seed = 12345
-- Expected Result: System loads the dataset corresponding to seed 12345 Output is consistent across multiple runs
+Creating a New Save:
+  - Steps
+    - Run the program
+    - Enter a seed value
+  - Expected outcome: A new save file is created named after the seed value. Main screen is acessed.
+  - Type: Functional
 ---
-- Test Name: App Launch
-- Expectation for funcitonal part: App launches successfully
-- Expectation for non-functional part: App is ready to use under 15 seconds from launch command
-- Test Environment: The application will be cold-started on a Windows 11 system under normal operating conditions
-- Test Procedure: The test will be executed three times under identical conditions.
-  The execution time will be recorded for each run, and the average value will be used as the final result
+Reaccessing a Profile Using an Already Existing Seed Value:
+ - Steps
+    - Rerun the program
+    - Enter a prieviously existing seed value.
+  - Expected outcome: Tasks that created and points gained in that save file can be seen.
+  - Non-functional part: During the rerunning, the app is ready for user input withing less than 15 seconds of launch command. This test will be conducted in normal OS conditions and the average of 3 trials will be used.
 ---
-- Test Name: Adding new tasks
-- Expectation for funcitonal part: A new task is added successfully
-- Expectation for non-functional part: The new task is visible within less than a second
+Creating a Task:
+  - Steps
+    - Double click on a date on calender or,
+    - Click "New Task" button
+    - Edit the name and priority values.
+    - Click "Save Task" button.
+  - Expected outcome: A new task is created and can be seen on "My Tasks".
+  - Non-functional part: At least 20 tasks can be added to any calendar day.
 
 ---
 
-- Test Name: Calendar functionality
-- Type: Functional
-- Expectation: A new event to a future calendar day can be added/removed
+ Deleting a task
+ - Steps
+    - Click Cross button on a task
+  - Expected outcome: Task is removed and no points gained.
+ - Type: Functional
