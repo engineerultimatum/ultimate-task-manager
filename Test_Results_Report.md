@@ -6,7 +6,7 @@
 ---
 2. Test: Reaccessing a Profile Using an Already Existing Seed Value
    - Result: Pass
-   - Test Results Overview: Same profile was successfully accessed by the same seed after rerunning the app. The App launched within less than 15 seconds with average of 7.5 seconds in 3 trials.
+   - Test Results Overview: Same profile was successfully accessed by the same seed after rerunning the app. The App launched within less than 15 seconds with average of 7.5 seconds in 3 trials. Results log: 7.3, 7.6, 7.6.
    - Test Results Analysis: This indicates that the program can access and use the save file it created before and can be ready to use within a satisfactory amount of time.
 ---
 3. Test: Creating a Task
