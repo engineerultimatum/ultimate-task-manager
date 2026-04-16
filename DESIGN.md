@@ -54,7 +54,7 @@ The application features a gamification system that rewards users with points fo
 
 ### System Architecture
 
-The application follows a **component-based architecture**, monolithic development pattern where source code is kept together to improve ease of development and speed:
+The application follows a **component-based architecture**, now uses Layered Architecture where source code is dsitributed to layers reflecting different tasks:
 
 ```
 ┌─────────────────────────────────────────┐
@@ -84,11 +84,11 @@ The application follows a **component-based architecture**, monolithic developme
      └───────┘           └──────────────┘   └───────────────┘
 ```
 
-**Monolithic Architecture:**
-- All application components are built, deployed, and scaled together as one unit.
-- Components (UI, business logic, data access) are interconnected
-- Application uses a single database
-- All functionalities are within one repository
+**Layered Architecture:**
+- Application consist of presentation layer, application layer, business layer and data layer.
+- Components are distributed accross layers according to their roles.
+- Application uses a single database and it is local storage.
+- All functionalities are distributed
 
 ### Technology Stack
 
