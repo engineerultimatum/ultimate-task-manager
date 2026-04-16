@@ -1,116 +1,148 @@
 ```mermaid
 classDiagram
-    class SaveData {
-        +String seed
-        +String language
-        +Vec~TodoNode~ todos
-        +usize next_id
-        +u32 points
+    %% Domain Models Layer
+    class TaskType {
+        <<enumeration>>
+        Regular
+        Habit
     }
 
     class TodoNode {
-        +usize id
-        +String text
-        +bool completed
-        +u32 importance
-        +Vec~TodoNode~ children
-        +Option~u64~ deadline
+        id: usize
+        text: String
+        completed: bool
+        importance: u32
+        children: Vec~TodoNode~
+        deadline: Option~u64~
+        task_type: TaskType
+        last_completed_date: Option~u64~
+    }
+
+    class SaveData {
+        seed: String
+        language: String
+        todos: Vec~TodoNode~
+        next_id: usize
+        points: u32
     }
 
     class Route {
-        +Login
-        +Home
-        +Options
-        +Go
-        +Calendar
+        <<enumeration>>
+        Login
+        Home
+        Options
+        Tasks
+        Calendar
     }
 
+    %% Business Logic Layer
+    class TodoNodeFactory {
+        create_regular(id, text) TodoNode
+        create_habit(id, text, importance) TodoNode
+        create_deadline(id, text, deadline) TodoNode
+        create_subtask(id, text, importance) TodoNode
+    }
+
+    class TodoOperations {
+        rename_node(todos, id, text, importance)
+        add_child(nodes, parent_id, new_id)
+        add_root_node_with_type(todos, id, type)
+        delete_node(nodes, id)
+    }
+
+    class CalendarUtils {
+        get_upcoming_deadlines()
+        calculate_day_progress()
+        check_habit_streak()
+    }
+
+    class SaveDataBuilder {
+        new() SaveDataBuilder
+        with_seed(seed) SaveDataBuilder
+        with_language(language) SaveDataBuilder
+        build() SaveData
+    }
+
+    %% Data Access Layer
+    class SaveManager {
+        load_save(seed) Option~SaveData~
+        save_data(data)
+    }
+
+    class FileStorage {
+        load_save(seed) Option~SaveData~
+        save_data_to_storage(data)
+        get_save_path(seed) Option~PathBuf~
+    }
+
+    class WebStorage {
+        load_save(seed) Option~SaveData~
+        save_data_to_storage(data)
+    }
+
+    %% Presentation Layer
     class App {
-        +Signal~Option~String~~ seed_signal
-        +Signal~String~ language_signal
+        seed_signal: Signal~String~
+        language_signal: Signal~String~
+        current_route: Signal~Route~
     }
 
-    class Login {
-        +Signal~String~ text
-        +Signal~String~ message
-        +fn enter_seed()
-    }
-
-    class Home {
-        +Signal~String~ language
-        +fn navigate_to_options()
-        +fn navigate_to_tasks()
-        +fn navigate_to_calendar()
-    }
-
-    class Options {
-        +Signal~String~ language
-        +fn toggle_language()
-        +fn save_settings()
-    }
-
-    class Go {
-        +Signal~Vec~TodoNode~~ todos
-        +Signal~usize~ next_id
-        +Signal~u32~ points
-        +fn add_root_node()
-        +fn auto_save()
-    }
+    class Login
+    class Home
+    class Options
+    class Tasks
+    class Calendar
 
     class TreeNode {
-        +TodoNode node
-        +Signal~bool~ expanded
-        +Signal~bool~ edit_modal_open
-        +fn toggle_expand()
-        +fn rename_task()
-        +fn delete_task()
-    }
-
-    class EditModal {
-        +Signal~String~ input_value
-        +Signal~u32~ importance
-        +fn on_rename()
-        +fn on_cancel()
-    }
-
-    class CompletionModal {
-        +String task_name
-        +fn on_completed()
-        +fn on_cancel()
-    }
-
-    class Calendar {
-        +Signal~(i32, i32)~ current_month
-        +Signal~Vec~TodoNode~~ todos
-        +Signal~bool~ calendar_modal_open
-        +fn navigate_month()
-        +fn create_task_with_deadline()
-    }
-
-    class DayModal {
-        +Signal~String~ task_name
-        +Signal~u32~ importance
-        +fn on_create()
-        +fn on_cancel()
+        renders TodoNode as tree structure
     }
 
     class CalendarDay {
-        +i32 day
-        +bool is_current_month
-        +fn on_double_click()
+        displays single day
     }
 
-    SaveData "1" --> "*" TodoNode
-    Go "1" --> "*" TreeNode
-    TreeNode "1" --> "1" TodoNode
-    TreeNode "1" --|> EditModal
-    TreeNode "1" --|> CompletionModal
-    Calendar "1" --|> DayModal
-    Calendar "1" --> "*" CalendarDay
-    App "1" --> "1" Route
-    App "1" --|> Login
-    App "1" --|> Home
-    App "1" --|> Options
-    App "1" --|> Go
-    App "1" --|> Calendar
+    class Modal {
+        popup dialogs
+    }
+
+    class ImportanceSelector {
+        selects task importance
+    }
+
+    class LanguageToggle {
+        switches language
+    }
+
+    %% Relationships
+    TodoNode --|> TaskType
+    SaveData --o TodoNode
+    App --> Route
+    App --> SaveManager
+    
+    TodoNodeFactory --> TodoNode
+    TodoOperations --> TodoNode
+    TodoOperations --> TodoNodeFactory
+    
+    CalendarUtils --> SaveData
+    SaveDataBuilder --> SaveData
+    
+    SaveManager --> FileStorage
+    SaveManager --> WebStorage
+    SaveManager --> SaveData
+    
+    App --> Login
+    App --> Home
+    App --> Options
+    App --> Tasks
+    App --> Calendar
+    
+    Home --> TreeNode
+    Tasks --> TreeNode
+    Home --> ImportanceSelector
+    Tasks --> Modal
+    Calendar --> CalendarDay
+    App --> LanguageToggle
+    
+    TodoOperations ..> SaveManager
+    CalendarUtils ..> SaveManager
 ```
